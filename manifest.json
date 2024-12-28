@@ -2,7 +2,7 @@
     "name": "Solar Energy Dashboard",
     "short_name": "Solar Dashboard",
     "description": "A dashboard for monitoring solar energy usage.",
-    "start_url": "/",
+    "start_url": "/solarplant/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#0073e6",
