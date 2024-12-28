@@ -23,15 +23,14 @@
       background-color: #f4f4f9;
       margin: 0;
       display: flex;
-      justify-content: space-evenly;
+      justify-content: center;
       align-items: center;
       height: 100vh;
       color: #333;
       overflow: hidden;
-      touch-action: none; /* Disable touch interactions */
-      user-select: none; /* Disable text selection */
-      pointer-events: none; /* Disable mouse/touch events */
-
+      touch-action: none;
+      user-select: none;
+      pointer-events: none;
     }
   
     .container {
@@ -46,11 +45,12 @@
       flex-direction: column;
       gap: 15px;
       justify-content: center;
+      align-items: center;
     }
   
     .title {
       text-align: center;
-      font-size: 1.5rem; 
+      font-size: 1.5rem;
       font-weight: bold;
       color: #0073e6;
       margin-bottom: 10px;
@@ -61,6 +61,7 @@
       flex-direction: column;
       gap: 15px;
       justify-content: center;
+      align-items: center;
     }
   
     .data-card {
@@ -70,14 +71,14 @@
       text-align: center;
       border: 1px solid #c8e6c9;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      width: 100%; /* Full width on smaller screens */
+      max-width: 350px; /* Limit max width for better layout */
     }
-
+  
     .data-card:active {
       transform: scale(0.98);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
-
-
   
     .data-label {
       font-size: 1rem;
@@ -86,7 +87,7 @@
     }
   
     .data-value {
-      font-size: 1.25rem; 
+      font-size: 1.25rem;
       font-weight: bold;
       color: #388e3c;
     }
@@ -96,24 +97,57 @@
       font-size: 0.75rem;
       color: #888;
     }
-
+  
     @media (max-width: 480px) {
       .title {
         font-size: 1.25rem;
       }
-
+  
       .data-label {
-       font-size: 1.25rem;
+        font-size: 1.25rem;
       }
-
-     .data-value {
+  
+      .data-value {
         font-size: 1.3rem;
       }
     }
-
-
-
+  
+    /* Adjustments for landscape orientation */
+    @media (min-width: 481px) and (max-width: 800px) and (orientation: landscape) {
+      .container {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+      }
+  
+      .data-grid {
+        flex-direction: row;
+        gap: 30px;
+        justify-content: center;
+        align-items: center;
+      }
+  
+      .data-card {
+        width: 17vw; /* Adjust card width for landscape */
+        height: 20vh;
+        padding: 2rem;
+      }
+    }
+  
+    /* Adjustments for larger screens */
+    @media (min-width: 801px) {
+      .container {
+        max-width: 1000px;
+      }
+  
+      .data-card {
+        padding: 2.5rem;
+      }
+    }
   </style>
+  
+  
 </head>
 
 <body>
