@@ -8,132 +8,97 @@
     <link rel="apple-touch-icon" href="icon.png">
     <title>Solar Energy Dashboard</title>
     <style>
-        /* Prevent horizontal scrolling */
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow-x: hidden; /* Hide horizontal overflow */
-        }
-
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
         }
 
         .container {
-            width: 100%;
-            max-width: 100%;
-            margin: 20px auto;
-            padding: 20px;
             background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box; /* Prevent content from overflowing */
+            border-radius: 12px;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            max-width: 500px; 
+            width: 90%; 
         }
 
         .title {
-            font-size: 24px;
             text-align: center;
-            margin-bottom: 20px;
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #333; 
         }
 
         .data {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 18px;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee; 
         }
 
-        .data .label {
-            font-weight: bold;
-            width: 48%; /* Ensure they fit even on smaller screens */
-            text-align: left;
+        .data:last-child {
+            border-bottom: none; 
+        }
+
+        .label {
+            font-weight: 600; 
+        }
+
+        .value {
+            font-size: 1.1em; 
         }
 
         .footer {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
             font-size: 14px;
-            color: #888;
-        }
-
-        /* Media Query for smaller screens */
-        @media (max-width: 600px) {
-            .container {
-                margin: 10px; /* Reduce margin */
-                padding: 10px; /* Reduce padding */
-            }
-
-            .title {
-                font-size: 20px; /* Smaller title font */
-            }
-
-            .data {
-                font-size: 16px; /* Smaller data font */
-            }
-
-            .data .label {
-                width: 100%; /* Stack the labels on smaller screens */
-            }
-
-            .footer {
-                font-size: 12px; /* Smaller footer font */
-            }
+            color: #777; 
         }
     </style>
 </head>
-
-
 <body>
     <div class="container">
         <div class="title">Solar Energy Dashboard</div>
         <div class="data">
             <span class="label">Today's Energy:</span>
-            <span id="energy-today">Loading...</span>
+            <span id="energy-today" class="value">Loading...</span>
         </div>
         <div class="data">
             <span class="label">Monthly Energy:</span>
-            <span id="energy-month">Loading...</span>
+            <span id="energy-month" class="value">Loading...</span>
         </div>
         <div class="data">
             <span class="label">Total Energy:</span>
-            <span id="energy-total">Loading...</span>
+            <span id="energy-total" class="value">Loading...</span>
         </div>
         <div class="footer">Powered by Solar Data</div>
     </div>
 
     <script>
-        // Function to fetch data using JSONP
         function fetchData() {
             const apiUrl = 'https://web.shinemonitor.com/public/?sign=0441928a28d070e497d3e66dff8102cf66bddb87&salt=1735312215446&token=4b224da2207ce616020cb12e85f71fe9229811e18580a078f46c608eac94d38a&action=queryPlantCurrentData&plantid=1286812&par=ENERGY_TODAY,ENERGY_MONTH,ENERGY_YEAR,ENERGY_TOTAL,ENERGY_PROCEEDS,ENERGY_CO2,CURRENT_TEMP,CURRENT_RADIANT,BATTERY_SOC,ENERGY_COAL,ENERGY_SO2&i18n=en_US&lang=en_US&callback=Khosa&_=1735311188005';
-    
-            // Create a new script element to load the JSONP response
-        const script = document.createElement('script');
-        script.src = apiUrl;
+            const script = document.createElement('script');
+            script.src = apiUrl;
+            document.body.appendChild(script);
+        }
 
-        // Append the script to the document
-        document.body.appendChild(script);
-    }
+        function Khosa(data) {
+            const energyToday = parseFloat(data.dat.find(item => item.key === 'ENERGY_TODAY').val).toFixed(1);
+            const energyMonth = parseFloat(data.dat.find(item => item.key === 'ENERGY_MONTH').val).toFixed(1);
+            const energyTotal = parseFloat(data.dat.find(item => item.key === 'ENERGY_TOTAL').val).toFixed(1);
 
-    // Callback function to handle the data
-    function Khosa(data) {
-        // Extracting the required data from the API response and formatting it to 1 decimal place
-        const energyToday = parseFloat(data.dat.find(item => item.key === 'ENERGY_TODAY').val).toFixed(1);
-        const energyMonth = parseFloat(data.dat.find(item => item.key === 'ENERGY_MONTH').val).toFixed(1);
-        const energyTotal = parseFloat(data.dat.find(item => item.key === 'ENERGY_TOTAL').val).toFixed(1);
+            document.getElementById('energy-today').innerText = `${energyToday} kWh`;
+            document.getElementById('energy-month').innerText = `${energyMonth} kWh`;
+            document.getElementById('energy-total').innerText = `${energyTotal} kWh`;
+        }
 
-        // Updating the HTML with formatted data
-        document.getElementById('energy-today').innerText = `${energyToday} kWh`;
-        document.getElementById('energy-month').innerText = `${energyMonth} kWh`;
-        document.getElementById('energy-total').innerText = `${energyTotal} kWh`;
-    }
-
-    // Call the fetchData function on page load
-    window.onload = fetchData;
-</script>
-    
+        window.onload = fetchData;
+    </script>
 </body>
 </html>
