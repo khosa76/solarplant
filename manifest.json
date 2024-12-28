@@ -2,10 +2,12 @@
     "name": "Solar Energy Dashboard",
     "short_name": "Solar Dashboard",
     "description": "A dashboard for monitoring solar energy usage.",
-    "start_url": "/",
-    "display": "standalone",
+    "start_url": "/", 
+    "display": "standalone", 
     "background_color": "#ffffff",
     "theme_color": "#0073e6",
+    "orientation": "portrait", 
+    "purpose": "any", 
     "icons": [
       {
         "src": "icons/icon-192x192.png",
@@ -19,4 +21,3 @@
       }
     ]
   }
-  
