@@ -67,6 +67,7 @@ function fetchData() {
 
     const script = document.createElement("script");
     script.src = globalurl;  // Use the dynamically set globalurl
+    console.log("clicked and refreshed");
     document.body.appendChild(script);
 }
 
