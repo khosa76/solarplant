@@ -83,7 +83,7 @@ function Khosa(data) {
 function disableUserInteractions() {
     document.addEventListener("touchmove", (event) => event.preventDefault(), { passive: false });
     document.addEventListener("gesturestart", (event) => event.preventDefault(), { passive: false });
-    document.addEventListener("touchstart", (event) => event.preventDefault(), { passive: false });
+    // document.addEventListener("touchstart", (event) => event.preventDefault(), { passive: false });
     document.addEventListener("keydown", (event) => event.preventDefault());
 }
 
