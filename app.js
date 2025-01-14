@@ -227,7 +227,8 @@ function fetchMonthData() {
           if (currentData) {
             if (currentIndex === todayIndex) {
               card1.innerText = "ਅੱਜ";  // Set text to "Today"
-              document.getElementById("next-btn").style.color = "white";
+              document.getElementById("next-btn").style.color = "#e8f5e9";
+              
           } else {
               card1.innerText = trimTimestamp(currentData.ts);  // Display trimmed timestamp normally
           }
@@ -246,7 +247,7 @@ function fetchMonthData() {
       document.getElementById("prev-btn").addEventListener("click", () => {
         if (currentIndex > 0) {
           document.getElementById("next-btn").style.display = "block";
-          document.getElementById("next-btn").style.color = "black";
+          document.getElementById("next-btn").style.color = "#0073e6";
           currentIndex--; // Move to the previous index
           updateCard();
         }
@@ -259,7 +260,8 @@ function fetchMonthData() {
           updateCard();
         }else {
             document.getElementById("next-btn").style.display = "block";
-            document.getElementById("next-btn").style.color = "white";
+            document.getElementById("next-btn").style.color = "#e8f5e9";
+        
         }
       });
 
@@ -289,7 +291,9 @@ window.onload = async () => {
   login("Khosa776", "stmyoB@86");
   await http_login(globalUsr, globalPowSha1); // Ensure http_login has run before fetching data
   // document.getElementById("next-btn").style.display = "block";
-  document.getElementById("next-btn").style.color = "white";
+  document.getElementById("next-btn").style.color = "#e8f5e9";
+  
+
   fetchData(); // Call fetchData after globalurl is set
   window.scrollTo(0, 1);
   disableUserInteractions();
