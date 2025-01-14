@@ -17,18 +17,12 @@
   <!-- Icons for iOS -->
   <link rel="apple-touch-icon" href="icons/icon-192x192.png">
 
-
   <!-- Link external js and hash and axios -->
   <script src="https://cdn.jsdelivr.net/npm/js-sha1"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="app.js" defer></script> <!-- Link to external JavaScript -->
   
   <style>
-  
-  * {
-  user-select: none;
-}
-
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f9;
@@ -39,11 +33,9 @@
       height: 100vh;
       color: #333;
       overflow: hidden;
-/*       touch-action: none; */
-      user-select: none;
-/*       pointer-events: none; */
+      
     }
-  
+
     .container {
       background-color: #ffffff;
       border-radius: 12px;
@@ -58,7 +50,7 @@
       justify-content: center;
       align-items: center;
     }
-  
+
     .title {
       text-align: center;
       font-size: 1.5rem;
@@ -66,7 +58,7 @@
       color: #0073e6;
       margin-bottom: 10px;
     }
-  
+
     .data-grid {
       display: flex;
       flex-direction: column;
@@ -74,7 +66,7 @@
       justify-content: center;
       align-items: center;
     }
-  
+
     .data-card {
       background-color: #e8f5e9;
       border-radius: 8px;
@@ -82,100 +74,173 @@
       text-align: center;
       border: 1px solid #c8e6c9;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      width: 100%; /* Full width on smaller screens */
-      max-width: 350px; /* Limit max width for better layout */
+      width: 100%;
+      max-width: 350px;
     }
-  
+
+    .data-card-1 {
+      background-color: #e8f5e9;
+      border-radius: 8px;
+      padding: 3rem 2rem;
+      text-align: center;
+      border: 1px solid #c8e6c9;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      width: 100%;
+      max-width: 350px;
+    }
+
     .data-card:active {
       transform: scale(0.98);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
-  
+
+    .data-card-2 {
+      background-color: #e8f5e9;
+      border-radius: 8px;
+      padding: 3rem 2rem;
+      text-align: center;
+      border: 1px solid #c8e6c9;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      width: 100%;
+      max-width: 350px;
+      display: flex;
+    justify-content: center;
+    justify-content: space-around;
+
+    }
+
+    .data-card-2:active {
+      transform: scale(0.98);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+
     .data-label {
       font-size: 1rem;
       color: #555;
       margin-bottom: 10px;
     }
-  
+
     .data-value {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: bold;
       color: #388e3c;
     }
-  
+
     .footer {
       text-align: center;
       font-size: 0.75rem;
       color: #888;
     }
-  
-    @media (max-width: 480px) {
-      .title {
-        font-size: 1.25rem;
-      }
-  
-      .data-label {
-        font-size: 1.25rem;
-      }
-  
-      .data-value {
-        font-size: 1.3rem;
-      }
+
+    /* Scrollable console for monthly energy data */
+    .sliding-console {
+      width: 100%;
+      max-height: 250px;
+      overflow-y: scroll;
+      background-color: #f1f1f1;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
-  
-    /* Adjustments for landscape orientation */
-    @media (min-width: 481px) and (max-width: 800px) and (orientation: landscape) {
-      .container {
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 1rem;
-      }
-  
-      .data-grid {
-        flex-direction: row;
-        gap: 30px;
-        justify-content: center;
-        align-items: center;
-      }
-  
-      .data-card {
-        width: 17vw; /* Adjust card width for landscape */
-        height: 20vh;
-        padding: 2rem;
-      }
+
+    .console-item {
+      background-color: #ffffff;
+      padding: 1rem;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
     }
-  
-    /* Adjustments for larger screens */
-    @media (min-width: 801px) {
-      .container {
-        max-width: 1000px;
-      }
-  
-      .data-card {
-        padding: 2.5rem;
-      }
+
+    .console-item .date {
+      color: #888;
+      font-size: 0.9rem;
     }
+
+    .console-item .value {
+      color: #388e3c;
+      font-weight: bold;
+    }
+
+
+    body {
+    font-family: Arial, sans-serif;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.slider {
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    min-width: 200px;
+    text-align: center;
+}
+
+button {
+    background-color: #f1f1f1;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
   </style>
-  
-  
 </head>
+ 
 
 <body>
   <div class="container">
+    <div class="title">Solar Energy Dashboard</div>
     <div class="data-grid">
-        <div class="data-card" onclick="fetchData()">
-            <div class="data-label">ਅੱਜ</div>
-            <div id="energy-today" class="data-value">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...</div>
-          </div>
-          <div class="data-card" onclick="fetchData()">
-            <div class="data-label">ਮਹੀਨਾ</div>
-            <div id="energy-month" class="data-value">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...</div>
-          </div>
-          <div class="data-card" onclick="fetchData()">
-            <div class="data-label">ਕੁੱਲ</div>
-            <div id="energy-total" class="data-value">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...</div>
-          </div> </div>
+
+
+
+
+
+      <div class="data-card" style="display: none;" onclick="fetchData()">
+        <div class="data-label">ਅੱਜ</div>
+        <div id="energy-today" class="data-value">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...</div>
+      </div>
+
+      <div class="data-card-2">
+        <button id="next-btn" class="prev">&#10094;</button>
+      <div class="data-center">
+        <div id="data-label-1" class="data-label">ਅੱਜ</div>
+        <div id="energy-month-1" class="data-value">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...</div>
+      </div>
+        <button id="prev-btn" class="next">&#10095;</button>
+      </div>
+   
+
+      <div class="data-card" onclick="fetchMonthData(); fetchData()">
+        <div class="data-label">ਮਹੀਨਾ</div>
+        <div id="energy-month" class="data-value">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...</div>
+      </div>
+
+
+      <div class="data-card" onclick="fetchMonthData(); fetchData()">
+        <div class="data-label">ਕੁੱਲ</div>
+        <div id="energy-total" class="data-value">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...</div>
+      </div>
+    </div>
+    
+    <!-- Sliding console for the daily energy data -->
+    <div id="sliding-console" class="sliding-console" style="display:none;">
+      <!-- Daily data will be appended here dynamically -->
+    </div>
   </div>
 
 </body>
