@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +22,8 @@
   <script src="https://cdn.jsdelivr.net/npm/js-sha1"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="app.js" defer></script> <!-- Link to external JavaScript -->
+  <script src="year.js" defer></script> <!-- Link to external JavaScript -->
+  <script src="month.js" defer></script> <!-- Link to external JavaScript -->
   
   <style>
     body {
@@ -208,13 +211,12 @@ button:hover {
     <div class="data-grid">
 
 
-
-
-
       <div class="data-card" style="display: none;" onclick="fetchData()">
         <div class="data-label">ਅੱਜ</div>
         <div id="energy-today" class="data-value">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...</div>
       </div>
+
+
 
       <div class="data-card-2">
         <button id="next-btn" class="prev">&#10094;</button>
@@ -224,15 +226,26 @@ button:hover {
       </div>
         <button id="prev-btn" class="next">&#10095;</button>
       </div>
-   
 
-      <div class="data-card" onclick="fetchMonthData(); fetchData()">
-        <div class="data-label">ਮਹੀਨਾ</div>
+
+
+      <div class="data-card-2">
+        <button id="next-btn-1" class="prev-1">&#10094;</button>
+      <div class="data-center">
+        <div id="data-label-2" class="data-label">ਮਹੀਨਾ</div>
         <div id="energy-month" class="data-value">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...</div>
       </div>
+        <button id="prev-btn-1" class="next-1">&#10095;</button>
+      </div>
+   
+<!-- 
+      <div class="data-card" onclick="yearTab()">
+        <div class="data-label">ਮਹੀਨਾ</div>
+        <div id="energy-month" class="data-value">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...</div>
+      </div> -->
 
 
-      <div class="data-card" onclick="fetchMonthData(); fetchData()">
+      <div class="data-card" onclick="fetchData(); monthTab(); yearTab();">
         <div class="data-label">ਕੁੱਲ</div>
         <div id="energy-total" class="data-value">ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...</div>
       </div>
@@ -246,3 +259,5 @@ button:hover {
 
 </body>
 </html>
+
+
