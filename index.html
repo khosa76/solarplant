@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1" />
   <title>Solar Energy Dashboard</title>
   
+  <!-- Additional meta tag to disable zooming on iOS -->
+  <meta name="HandheldFriendly" content="true" />
+  
   <!-- Link to manifest -->
   <link rel="manifest" href="/manifest.json" />
   
@@ -24,15 +27,56 @@
   <script src="year.js" defer></script> <!-- Link to external JavaScript -->
   <script src="month.js" defer></script> <!-- Link to external JavaScript -->
   
+  <!-- Script to prevent zoom gestures -->
+  <script>
+    // Prevent zoom on double tap
+    document.addEventListener('dblclick', function(event) {
+      event.preventDefault();
+    }, { passive: false });
+    
+    // Prevent pinch zoom
+    document.addEventListener('touchstart', function(event) {
+      if (event.touches.length > 1) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+    
+    document.addEventListener('touchmove', function(event) {
+      if (event.touches.length > 1) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+    
+    // Additional event handlers for iOS
+    document.addEventListener('gesturestart', function(event) {
+      event.preventDefault();
+    }, { passive: false });
+    
+    document.addEventListener('gesturechange', function(event) {
+      event.preventDefault();
+    }, { passive: false });
+    
+    document.addEventListener('gestureend', function(event) {
+      event.preventDefault();
+    }, { passive: false });
+  </script>
+  
   <style>
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
+      /* Disable text selection */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     html {
       font-size: 100%;
-      touch-action: manipulation;
+      /* Disable touch zooming */
+      touch-action: none;
+      -ms-touch-action: none;
     }
 
     body {
@@ -46,6 +90,9 @@
       min-height: 100vh;
       color: #333;
       overflow-x: hidden;
+      /* Prevent overscroll/bounce effect */
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: auto;
     }
 
     .container {
@@ -145,6 +192,7 @@
       align-items: center;
       justify-content: center;
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+      touch-action: manipulation;
     }
 
     button:active {
