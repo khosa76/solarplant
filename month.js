@@ -82,7 +82,22 @@ function monthTab() {
             const [year, month, day] = datePart.split("-");  // Split into [year, month, day]
             
             // Map month number to month name
-            const monthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const monthNames = [
+              "",
+              "ਜਨਵਰੀ",
+              "ਫਰਵਰੀ",
+              "ਮਾਰਚ",
+              "ਅਪ੍ਰੈਲ",
+              "ਮਈ",
+              "ਜੂਨ",
+              "ਜੁਲਾਈ",
+              "ਅਗਸਤ",
+              "ਸਤੰਬਰ",
+              "ਅਕਤੂਬਰ",
+              "ਨਵੰਬਰ",
+              "ਦਸੰਬਰ"
+            ];
+            
             const monthName = monthNames[parseInt(month)];
             
             // Return the date in "DD Month" format
