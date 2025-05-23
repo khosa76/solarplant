@@ -108,9 +108,9 @@
 
   <body>
     <!-- ╭──────────────────────────────────────────╮
-       │                SOLAR UI                  │
-       ╰──────────────────────────────────────────╯-->
-    
+         │                SOLAR UI                  │
+         ╰──────────────────────────────────────────╯-->
+
     <div class="container">
       <div class="data-grid">
         <div class="data-card" style="display: none" onclick="fetchData()">
@@ -149,10 +149,6 @@
             &#10095;
           </button>
         </div>
-        
-
-        
-
 
         <div class="data-card" onclick="fetchData(); monthTab(); yearTab();">
           <div class="data-label">ਕੁੱਲ</div>
@@ -162,51 +158,70 @@
         </div>
       </div>
 
-        <div class="data-card-3">
-          <div class="data-center">
-            <div id="data-label-2" class="data-label"></div>
-            <button id="meterBtn" class="meter-btn" aria-label="Smart-meter">⚡</button>
-          </div>
+      <div class="data-card-3">
+        <div class="data-center">
+          <div id="data-label-2" class="data-label"></div>
+          <button id="meterBtn" class="meter-btn" aria-label="Smart-meter">
+            ⚡
+          </button>
         </div>
-
-   
+      </div>
     </div>
 
     <!-- ╭──────────────────────────────────────────╮
-       │        SMART-METER QUICK-LAUNCH          │
-       ╰──────────────────────────────────────────╯-->
+         │        SMART-METER QUICK-LAUNCH          │
+         ╰──────────────────────────────────────────╯-->
 
     <!-- ╭──── Smart-meter launcher / toggle ────╮-->
     <!-- <button id="meterBtn" class="meter-btn" aria-label="Smart-meter">⚡</button> -->
 
     <div id="meterOverlay" class="overlay hidden">
-   
+      <div class="container">
+        <div class="part1">
+          <h3 class="sub" id="clock">ਡਾਟਾ: -- /-- /--</h3>
+          <!-- <div id="clock" class="value">--</div> -->
+          <div class="meter-row">
+            <span class="lbl">ਯੂਨਿਟ ਲਏ</span
+            ><span id="mImport" class="val">--</span>
+          </div>
+          <div class="meter-row">
+            <span class="lbl">ਯੂਨਿਟ ਭੇਜੇ</span
+            ><span id="mExport" class="val">--</span>
+          </div>
+          <div class="meter-row">
+            <span class="lbl">ਬਾਕੀ</span
+            ><span id="mRemain" class="val">--</span>
+          </div>
+          <div class="meter-row">
+            <span class="lbl">ਕੁੱਲ</span><span id="mTotal" class="val">--</span>
+          </div>
+        </div>
 
-
-       <div class="container">
-<div class="part1">
-  <h3 class="sub">ਤਾਜ਼ਾ ਡਾਟਾ (ਅੱਜ)</h3>
-  <!-- <div id="clock" class="value">--</div> -->
-  <div class="meter-row"><span class="lbl">ਯੂਨਿਟ ਲਏ</span><span id="mImport" class="val">--</span></div>
-  <div class="meter-row"><span class="lbl">ਯੂਨਿਟ ਭੇਜੇ</span><span id="mExport" class="val">--</span></div>
-  <div class="meter-row"><span class="lbl">ਬਾਕੀ</span><span id="mRemain" class="val">--</span></div>
-  <div class="meter-row"><span class="lbl">ਕੁੱਲ</span><span id="mTotal" class="val">--</span></div>
-</div>
-
-<!-- Month-start snapshot -->
-<div class="part2">
-  <h3 class="sub">ਬਿੱਲ (ਮਹੀਨਾ ਸ਼ੁਰੂ)</h3>
-  <div class="meter-row"><span class="lbl">ਯੂਨਿਟ ਲਏ</span><span id="msImport" class="val">--</span></div>
-  <div class="meter-row"><span class="lbl">ਯੂਨਿਟ ਭੇਜੇ</span><span id="msExport" class="val">--</span></div>
-  <div class="meter-row"><span class="lbl">ਬਾਕੀ</span><span id="msRemain" class="val">--</span></div>
-  <div class="meter-row"><span class="lbl">ਕੁੱਲ </span><span id="msTotal" class="val">--</span></div>
-</div>
-
-  </div>
-</div>
+        <!-- Month-start snapshot -->
+        <div class="part2">
+          <h3 class="sub" id="endclock" >ਬਿੱਲ -- /-- /--</h3>
+          <div class="meter-row">
+            <span class="lbl">ਯੂਨਿਟ ਲਏ</span
+            ><span id="msImport" class="val">--</span>
+          </div>
+          <div class="meter-row">
+            <span class="lbl">ਯੂਨਿਟ ਭੇਜੇ</span
+            ><span id="msExport" class="val">--</span>
+          </div>
+          <div class="meter-row">
+            <span class="lbl">ਬਾਕੀ</span
+            ><span id="msRemain" class="val">--</span>
+          </div>
+          <div class="meter-row">
+            <span class="lbl">ਕੁੱਲ </span
+            ><span id="msTotal" class="val">--</span>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- ╭──────────────────────────────────────────╮
-       │        SMART-METER JAVASCRIPT            │
-       ╰──────────────────────────────────────────╯-->
+         │        SMART-METER JAVASCRIPT            │
+         ╰──────────────────────────────────────────╯-->
     <script>
       /* endpoint map (same IDs & token you used before) */
       /* ───── smart-meter endpoints & helper ───── */
@@ -242,9 +257,9 @@
       }
 
       /* ───── toggle + update ───── */
-      const $  = id => document.getElementById(id);
-const btn     = $('meterBtn');
-const overlay = $('meterOverlay');
+      const $ = (id) => document.getElementById(id);
+      const btn = $("meterBtn");
+      const overlay = $("meterOverlay");
 
       btn.onclick = () => {
         const open = overlay.classList.toggle("hidden");
@@ -257,11 +272,10 @@ const overlay = $('meterOverlay');
         if (!open) updateMeter(); // when opening, refresh data
       };
 
-      function colour(el,val){
-  el.textContent = val.toFixed(2);
-  el.className = 'val ' + (val>=0 ? 'pos' : 'neg');
-}
-
+      function colour(el, val) {
+        el.textContent = val.toFixed(2);
+        el.className = "val " + (val >= 0 ? "pos" : "neg");
+      }
 
       function updateMeter() {
         /* live snapshot */
@@ -269,10 +283,15 @@ const overlay = $('meterOverlay');
           if (!d) return;
           const imp = +d[0][0]["21"].value,
             exp = +d[0][0]["22"].value;
-            // live = d["0"]["0"];
+          tdate = d["0"]["0"];
           $("mImport").textContent = imp.toFixed(2);
           $("mExport").textContent = exp.toFixed(2);
-          // $("clock").textContent = live["0"].value;
+          const rawdate = tdate["0"].value;
+          const fdate = rawdate.split(" ")[0].slice(0, 6);
+          const rawyear = rawdate.split("/")[2].slice(2, 4);
+          const ftitle = `ਡਾਟਾ: ${fdate}${rawyear}`;
+          $("clock").textContent = ftitle;
+
           colour($("mRemain"), exp - imp);
         });
         fetchJSONP(smEP.liveChk, (d) => {
@@ -285,6 +304,16 @@ const overlay = $('meterOverlay');
           if (!d) return;
           const imp = +d[0]["Cum.Energy-kWh(Import)"].value,
             exp = +d[0]["Cum.Energy-kWh(Export)"].value;
+            endtime = d["0"]["ClockDate"]["value"];
+            const enddate = endtime.split(" ")[0].slice(0, 6);
+            const endyear = endtime.split("/")[2].slice(2, 4);
+            const endtitle = `ਬਿੱਲ: ${enddate}${endyear}`;
+            $("endclock").textContent = endtitle;
+
+
+
+            console.log("kkhhoossaa 0: ", endtitle);
+
           $("msImport").textContent = imp.toFixed(1);
           $("msExport").textContent = exp.toFixed(1);
           colour($("msRemain"), exp - imp);
