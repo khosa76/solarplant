@@ -110,7 +110,7 @@
     <!-- ╭──────────────────────────────────────────╮
        │                SOLAR UI                  │
        ╰──────────────────────────────────────────╯-->
-
+    
     <div class="container">
       <div class="data-grid">
         <div class="data-card" style="display: none" onclick="fetchData()">
@@ -149,6 +149,10 @@
             &#10095;
           </button>
         </div>
+        
+
+        
+
 
         <div class="data-card" onclick="fetchData(); monthTab(); yearTab();">
           <div class="data-label">ਕੁੱਲ</div>
@@ -157,6 +161,15 @@
           </div>
         </div>
       </div>
+
+        <div class="data-card-3">
+          <div class="data-center">
+            <div id="data-label-2" class="data-label"></div>
+            <button id="meterBtn" class="meter-btn" aria-label="Smart-meter">⚡</button>
+          </div>
+        </div>
+
+   
     </div>
 
     <!-- ╭──────────────────────────────────────────╮
@@ -164,13 +177,14 @@
        ╰──────────────────────────────────────────╯-->
 
     <!-- ╭──── Smart-meter launcher / toggle ────╮-->
-    <button id="meterBtn" class="meter-btn" aria-label="Smart-meter">⚡</button>
+    <!-- <button id="meterBtn" class="meter-btn" aria-label="Smart-meter">⚡</button> -->
 
     <div id="meterOverlay" class="overlay hidden">
    
 
       <!-- Live snapshot -->
        <!-- Live snapshot -->
+       <div class="container">
 <div class="part1">
   <h3 class="sub">ਤਾਜ਼ਾ ਡਾਟਾ (ਅੱਜ)</h3>
   <!-- <div id="clock" class="value">--</div> -->
@@ -190,6 +204,7 @@
 </div>
 
   </div>
+</div>
     <!-- ╭──────────────────────────────────────────╮
        │        SMART-METER JAVASCRIPT            │
        ╰──────────────────────────────────────────╯-->
