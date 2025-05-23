@@ -297,7 +297,9 @@ margin-bottom: 2vh;
 .part2{
   width: 100vw;
   margin-top: 2vh;
+  margin-bottom: 1vh;
 }
+
 .meter-row + .sub {
   margin-top: 2.2rem;
 } /* a bit more space above second heading */
