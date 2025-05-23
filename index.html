@@ -1,318 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1, viewport-fit=cover" />
-  <title>Solar Energy Dashboard</title>
-  
-  <!-- Additional meta tag to disable zooming on iOS -->
-  <meta name="HandheldFriendly" content="true" />
-  
-  <!-- Link to manifest -->
-  <link rel="manifest" href="/manifest.json" />
-  
-  <!-- Meta Tags for PWA -->
-  <meta name="theme-color" content="#0073e6">
-  <meta name="apple-mobile-web-app-title" content="Solar Dashboard">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  
-  <!-- Icons for iOS -->
-  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1, viewport-fit=cover"
+    />
+    <title>Solar Energy Dashboard</title>
 
-  <!-- Link external js and hash and axios -->
-  <script src="https://cdn.jsdelivr.net/npm/js-sha1"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="app.js" defer></script> <!-- Link to external JavaScript -->
-  <script src="year.js" defer></script> <!-- Link to external JavaScript -->
-  <script src="month.js" defer></script> <!-- Link to external JavaScript -->
-  
-  <!-- Script to prevent zoom gestures -->
-  <script>
-    // Prevent zoom on double tap
-    document.addEventListener('dblclick', function(event) {
-      event.preventDefault();
-    }, { passive: false });
-    
-    // Prevent pinch zoom
-    document.addEventListener('touchstart', function(event) {
-      if (event.touches.length > 1) {
-        event.preventDefault();
+    <!-- Additional meta tag to disable zooming on iOS -->
+    <meta name="HandheldFriendly" content="true" />
+
+    <!-- Link to manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Meta Tags for PWA -->
+    <meta name="theme-color" content="#0073e6" />
+    <meta name="apple-mobile-web-app-title" content="Solar Dashboard" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!-- Icons for iOS -->
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png" />
+
+    <!-- Link external js and hash and axios -->
+    <script src="https://cdn.jsdelivr.net/npm/js-sha1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="app.js" defer></script>
+    <!-- Link to external JavaScript -->
+    <script src="year.js" defer></script>
+    <!-- Link to external JavaScript -->
+    <script src="month.js" defer></script>
+    <!-- Link to external JavaScript -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Script to prevent zoom gestures -->
+    <script>
+      // Prevent zoom on double tap
+      document.addEventListener(
+        "dblclick",
+        function (event) {
+          event.preventDefault();
+        },
+        { passive: false }
+      );
+
+      // Prevent pinch zoom
+      document.addEventListener(
+        "touchstart",
+        function (event) {
+          if (event.touches.length > 1) {
+            event.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+
+      document.addEventListener(
+        "touchmove",
+        function (event) {
+          if (event.touches.length > 1) {
+            event.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+
+      // Additional event handlers for iOS
+      document.addEventListener(
+        "gesturestart",
+        function (event) {
+          event.preventDefault();
+        },
+        { passive: false }
+      );
+
+      document.addEventListener(
+        "gesturechange",
+        function (event) {
+          event.preventDefault();
+        },
+        { passive: false }
+      );
+
+      document.addEventListener(
+        "gestureend",
+        function (event) {
+          event.preventDefault();
+        },
+        { passive: false }
+      );
+
+      // Handle browser resize and adjust for mobile browser chrome
+      window.addEventListener("load", adjustLayout);
+      window.addEventListener("resize", adjustLayout);
+
+      function adjustLayout() {
+        // Set a custom CSS property with the actual viewport height
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
       }
-    }, { passive: false });
-    
-    document.addEventListener('touchmove', function(event) {
-      if (event.touches.length > 1) {
-        event.preventDefault();
-      }
-    }, { passive: false });
-    
-    // Additional event handlers for iOS
-    document.addEventListener('gesturestart', function(event) {
-      event.preventDefault();
-    }, { passive: false });
-    
-    document.addEventListener('gesturechange', function(event) {
-      event.preventDefault();
-    }, { passive: false });
-    
-    document.addEventListener('gestureend', function(event) {
-      event.preventDefault();
-    }, { passive: false });
+    </script>
+  </head>
 
-    // Handle browser resize and adjust for mobile browser chrome
-    window.addEventListener('load', adjustLayout);
-    window.addEventListener('resize', adjustLayout);
-    
-    function adjustLayout() {
-      // Set a custom CSS property with the actual viewport height
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    }
-  </script>
-  
-  <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-      /* Disable text selection */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
+  <body>
+    <!-- ╭──────────────────────────────────────────╮
+       │                SOLAR UI                  │
+       ╰──────────────────────────────────────────╯-->
 
-    html {
-      font-size: 100%;
-      /* Disable touch zooming */
-      touch-action: none;
-      -ms-touch-action: none;
-      height: 100%;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh; /* Fallback */
-      min-height: calc(var(--vh, 1vh) * 100); /* Adjusted viewport height */
-      height: 100%;
-      color: #333;
-      overflow: hidden;
-      /* Prevent overscroll/bounce effect */
-      overscroll-behavior: none;
-      -webkit-overflow-scrolling: auto;
-    }
-
-    .container {
-      /* Use flex to fill available space */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100%; /* Use all available height */
-      width: 100%;
-      max-width: 800px;
-      padding: 3px;
-    }
-
-    .data-grid {
-      display: flex;
-      flex-direction: column;
-      width: 95%;
-      /* Use flex to distribute space */
-      flex: 1;
-      justify-content: space-evenly;
-      align-items: center;
-      /* Space between cards */
-      padding: 0 10px;
-    }
-
-    .data-card {
-      background-color: #e8f5e9;
-      border-radius: 16px;
-      padding: 1.5rem;
-      text-align: center;
-      border: 2px solid #a5d6a7;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s ease;
-      width: 100%;
-      height: 23vh; /* Fixed height based on viewport */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      aspect-ratio: 2.2 / 1; /* More square-like than before */
-    }
-
-    .data-card-2 {
-      background-color: #e8f5e9;
-      border-radius: 16px;
-      padding: 1.5rem 1rem;
-      text-align: center;
-      border: 2px solid #a5d6a7;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.2s ease;
-      width: 100%;
-      height: 23vh;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      aspect-ratio: 2.2 / 1; /* More square-like than before */
-    }
-
-    .data-center {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 0 8px;
-    }
-
-    .data-label {
-      font-size: clamp(1.4rem, 4.8vw, 2rem);
-      color: #333;
-      margin-bottom: 10px;
-      font-weight: 500;
-    }
-
-    .data-value {
-      font-size: 2.8rem;
-      font-weight: bold;
-      color: #1b5e20;
-    }
-
-    button {
-      background-color: #e8f5e9;
-      color: #0073e6;
-      border: none;
-      font-size: clamp(26px, 5vw, 34px);
-      cursor: pointer;
-      padding: 0;
-      border-radius: 50%;
-      width: clamp(55px, 9vw, 65px);
-      height: clamp(55px, 9vw, 65px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-      touch-action: manipulation;
-      min-width: 50px;
-      min-height: 50px;
-      margin: 0 3px;
-    }
-
-    button:active {
-      transform: scale(0.95);
-    }
-
-    /* Loading Spinner */
-    .loading-spinner {
-      display: inline-block;
-      width: clamp(35px, 8vw, 55px);
-      height: clamp(35px, 8vw, 55px);
-      border: 5px solid rgba(27, 94, 32, 0.1);
-      border-radius: 50%;
-      border-top-color: #1b5e20;
-      animation: spin 1s ease-in-out infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* Hide text when showing spinner */
-    .loading .data-value {
-      display: none;
-    }
-
-    /* Responsive design for all viewport sizes */
-    @media (max-height: 600px) {
-      .data-grid {
-        gap: 8px;
-      }
-      
-      .data-card, .data-card-2 {
-        padding: 0.9rem;
-        height: 22.5vh;
-      }
-      
-      .data-label {
-        margin-bottom: 5px;
-      }
-      
-      button {
-        min-width: 45px;
-        min-height: 45px;
-      }
-    }
-
-    @media (max-width: 380px) {
-      html {
-        font-size: 95%;
-      }
-      
-      .data-card, .data-card-2 {
-        border-radius: 14px;
-      }
-      
-      .data-value {
-        font-size: 2.5rem;
-      }
-      
-      button {
-        min-width: 45px;
-        min-height: 45px;
-      }
-    }
-  </style>
-</head>
- 
-<body>
-  <div class="container">
-    <div class="data-grid">
-      <div class="data-card" style="display: none;" onclick="fetchData()">
-        <div class="data-label">ਅੱਜ</div>
-        <div id="energy-today" class="data-value">
-          <div class="loading-spinner"></div>
-        </div>
-      </div>
-
-      <div class="data-card-2">
-        <button id="next-btn" class="prev" aria-label="Previous day">&#10094;</button>
-        <div class="data-center">
-          <div id="data-label-1" class="data-label">ਅੱਜ</div>
-          <div id="energy-month-1" class="data-value">
+    <div class="container">
+      <div class="data-grid">
+        <div class="data-card" style="display: none" onclick="fetchData()">
+          <div class="data-label">ਅੱਜ</div>
+          <div id="energy-today" class="data-value">
             <div class="loading-spinner"></div>
           </div>
         </div>
-        <button id="prev-btn" class="next" aria-label="Next day">&#10095;</button>
-      </div>
 
-      <div class="data-card-2">
-        <button id="next-btn-1" class="prev-1" aria-label="Previous month">&#10094;</button>
-        <div class="data-center">
-          <div id="data-label-2" class="data-label">ਮਹੀਨਾ</div>
-          <div id="energy-month" class="data-value">
+        <div class="data-card-2">
+          <button id="next-btn" class="prev" aria-label="Previous day">
+            &#10094;
+          </button>
+          <div class="data-center">
+            <div id="data-label-1" class="data-label">ਅੱਜ</div>
+            <div id="energy-month-1" class="data-value">
+              <div class="loading-spinner"></div>
+            </div>
+          </div>
+          <button id="prev-btn" class="next" aria-label="Next day">
+            &#10095;
+          </button>
+        </div>
+
+        <div class="data-card-2">
+          <button id="next-btn-1" class="prev-1" aria-label="Previous month">
+            &#10094;
+          </button>
+          <div class="data-center">
+            <div id="data-label-2" class="data-label">ਮਹੀਨਾ</div>
+            <div id="energy-month" class="data-value">
+              <div class="loading-spinner"></div>
+            </div>
+          </div>
+          <button id="prev-btn-1" class="next-1" aria-label="Next month">
+            &#10095;
+          </button>
+        </div>
+
+        <div class="data-card" onclick="fetchData(); monthTab(); yearTab();">
+          <div class="data-label">ਕੁੱਲ</div>
+          <div id="energy-total" class="data-value">
             <div class="loading-spinner"></div>
           </div>
-        </div>
-        <button id="prev-btn-1" class="next-1" aria-label="Next month">&#10095;</button>
-      </div>
-
-      <div class="data-card" onclick="fetchData(); monthTab(); yearTab();">
-        <div class="data-label">ਕੁੱਲ</div>
-        <div id="energy-total" class="data-value">
-          <div class="loading-spinner"></div>
         </div>
       </div>
     </div>
+
+    <!-- ╭──────────────────────────────────────────╮
+       │        SMART-METER QUICK-LAUNCH          │
+       ╰──────────────────────────────────────────╯-->
+
+    <!-- ╭──── Smart-meter launcher / toggle ────╮-->
+    <button id="meterBtn" class="meter-btn" aria-label="Smart-meter">⚡</button>
+
+    <div id="meterOverlay" class="overlay hidden">
+   
+
+      <!-- Live snapshot -->
+       <!-- Live snapshot -->
+<div class="part1">
+  <h3 class="sub">ਤਾਜ਼ਾ ਡਾਟਾ (ਅੱਜ)</h3>
+  <!-- <div id="clock" class="value">--</div> -->
+  <div class="meter-row"><span class="lbl">ਯੂਨਿਟ ਲਏ</span><span id="mImport" class="val">--</span></div>
+  <div class="meter-row"><span class="lbl">ਯੂਨਿਟ ਭੇਜੇ</span><span id="mExport" class="val">--</span></div>
+  <div class="meter-row"><span class="lbl">ਬਾਕੀ</span><span id="mRemain" class="val">--</span></div>
+  <div class="meter-row"><span class="lbl">ਕੁੱਲ</span><span id="mTotal" class="val">--</span></div>
+</div>
+
+<!-- Month-start snapshot -->
+<div class="part2">
+  <h3 class="sub">ਬਿੱਲ (ਮਹੀਨਾ ਸ਼ੁਰੂ)</h3>
+  <div class="meter-row"><span class="lbl">ਯੂਨਿਟ ਲਏ</span><span id="msImport" class="val">--</span></div>
+  <div class="meter-row"><span class="lbl">ਯੂਨਿਟ ਭੇਜੇ</span><span id="msExport" class="val">--</span></div>
+  <div class="meter-row"><span class="lbl">ਬਾਕੀ</span><span id="msRemain" class="val">--</span></div>
+  <div class="meter-row"><span class="lbl">ਕੁੱਲ </span><span id="msTotal" class="val">--</span></div>
+</div>
+
   </div>
-</body>
+    <!-- ╭──────────────────────────────────────────╮
+       │        SMART-METER JAVASCRIPT            │
+       ╰──────────────────────────────────────────╯-->
+    <script>
+      /* endpoint map (same IDs & token you used before) */
+      /* ───── smart-meter endpoints & helper ───── */
+      const smEP = {
+        liveNet: ["378717", "push"],
+        liveChk: ["378716", "push"],
+        billNet: ["378717", "bill"],
+        billChk: ["378716", "bill"],
+      };
+      const smBase = "https://distribution.pspcl.in/returns/module.php";
+      const smCommon =
+        "&mobile=9814818976&token=ad4e3710ebcdedf2ce635e40becff3e3&lang=en&";
+
+      function fetchJSONP([id, type], cb) {
+        const cbName =
+          "cb_" + Date.now() + "_" + Math.random().toString(36).slice(2);
+        const s = document.createElement("script");
+        window[cbName] = (d) => {
+          delete window[cbName];
+          s.remove();
+          cb(d);
+        };
+        const to =
+          type === "push"
+            ? "SmartMeters.apiMDMGetPushData"
+            : "SmartMeters.apiMDMGetBillingProfile";
+        s.src = `${smBase}?to=${to}${smCommon}meterid=${id}&callback=${cbName}`;
+        s.onerror = (_) => {
+          console.error("JSONP fail", s.src);
+          cb(null);
+        };
+        document.head.appendChild(s);
+      }
+
+      /* ───── toggle + update ───── */
+      const $ = (id) => document.getElementById(id);
+      const btn = $("meterBtn"),
+        overlay = $("meterOverlay");
+
+      btn.onclick = () => {
+        const open = overlay.classList.toggle("hidden");
+        btn.textContent = open ? "⚡" : "✕"; // swap icon
+        if (!open) updateMeter(); // when opening, refresh data
+      };
+
+      function colour(el,val){
+  el.textContent = val.toFixed(2);
+  el.className = 'val ' + (val>=0 ? 'pos' : 'neg');
+}
+
+
+      function updateMeter() {
+        /* live snapshot */
+        fetchJSONP(smEP.liveNet, (d) => {
+          if (!d) return;
+          const imp = +d[0][0]["21"].value,
+            exp = +d[0][0]["22"].value;
+            // live = d["0"]["0"];
+          $("mImport").textContent = imp.toFixed(2);
+          $("mExport").textContent = exp.toFixed(2);
+          // $("clock").textContent = live["0"].value;
+          colour($("mRemain"), exp - imp);
+        });
+        fetchJSONP(smEP.liveChk, (d) => {
+          if (!d) return;
+          $("mTotal").textContent = (+d[0][0]["21"].value).toFixed(2);
+        });
+
+        /* month-start snapshot */
+        fetchJSONP(smEP.billNet, (d) => {
+          if (!d) return;
+          const imp = +d[0]["Cum.Energy-kWh(Import)"].value,
+            exp = +d[0]["Cum.Energy-kWh(Export)"].value;
+          $("msImport").textContent = imp.toFixed(1);
+          $("msExport").textContent = exp.toFixed(1);
+          colour($("msRemain"), exp - imp);
+        });
+        fetchJSONP(smEP.billChk, (d) => {
+          if (!d) return;
+          $("msTotal").textContent = (+d[0]["Cum.Energy-kWh(Import)"]
+            .value).toFixed(1);
+        });
+      }
+
+      // btn.onclick = () => {
+      //   overlay.classList.remove("hidden");
+      //   updateMeter();
+      // };
+      // close.onclick = () => overlay.classList.add("hidden");
+    </script>
+  </body>
 </html>
-
-
