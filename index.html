@@ -182,8 +182,7 @@
     <div id="meterOverlay" class="overlay hidden">
    
 
-      <!-- Live snapshot -->
-       <!-- Live snapshot -->
+
        <div class="container">
 <div class="part1">
   <h3 class="sub">ਤਾਜ਼ਾ ਡਾਟਾ (ਅੱਜ)</h3>
@@ -243,13 +242,18 @@
       }
 
       /* ───── toggle + update ───── */
-      const $ = (id) => document.getElementById(id);
-      const btn = $("meterBtn"),
-        overlay = $("meterOverlay");
+      const $  = id => document.getElementById(id);
+const btn     = $('meterBtn');
+const overlay = $('meterOverlay');
 
       btn.onclick = () => {
         const open = overlay.classList.toggle("hidden");
         btn.textContent = open ? "⚡" : "✕"; // swap icon
+        // btn.style.height = '3rem';
+
+        const size = open ? "6rem" : "3rem";
+        btn.style.height = size;
+
         if (!open) updateMeter(); // when opening, refresh data
       };
 
